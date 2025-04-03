@@ -12,6 +12,7 @@ WORK_MIN = 0.2
 SHORT_BREAK_MIN = 0.3
 LONG_BREAK_MIN = 20
 reps = 0
+check = "✔"
 
 # ---------------------------- TIMER RESET ------------------------------- # 
 def reset_timer():
@@ -39,7 +40,7 @@ def start_timer():
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 def countdown(count):
-
+    global check
     count_min = math.floor(count / 60)
     count_sec = count % 60
     if count_min < 10:
@@ -52,6 +53,10 @@ def countdown(count):
         window.after(1000, countdown,count -1 )
     else:
         start_timer()
+        if reps %2 == 0:
+            check_label.config(text=check)
+            print(check)
+            check += "✔"
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -80,7 +85,7 @@ start_button.grid(row=2, column=0)
 reset_button = Button(text="Reset", bg=YELLOW, highlightthickness=0)
 reset_button.grid(row=2, column=2)
 
-check_label = Label(text="✔", fg=GREEN, bg=YELLOW)
+check_label = Label(fg=GREEN, bg=YELLOW)
 check_label.grid(row=3, column=1)
 
 window.mainloop()
